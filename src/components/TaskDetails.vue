@@ -2,18 +2,20 @@
   <div class="task">
     <h3>{{ task.title }}</h3>
     <div class="icons">
-      <i class="material-icons">delete</i>
-      <i class="material-icons" @click="$emit('favoriteTask')">favorite</i>
+      <i class="material-icons" @click="taskStore.deleteTask(task.id)">delete</i>
+      <i class="material-icons" :class="{active: task.isFav}" @click="taskStore.toggleFav(task.id)">favorite</i>
     </div>
   </div>
 </template>
 
 <script setup>
 import { defineProps } from 'vue';
+import { useTaskStore } from '../stores/TaskStore';
 
 const props = defineProps(['task'])
 
-const emit = defineEmits(['favoriteTask'])
+const taskStore = useTaskStore()
+
 </script>
 
 <style lang="scss" scoped>
